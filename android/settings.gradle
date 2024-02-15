@@ -4,10 +4,20 @@ pluginManagement {
         google()
         mavenCentral()
     }
-    plugins {
-       // id 'com.android.library' version "${AGPVersion}"
-        id 'org.jetbrains.kotlin.android' version "${KotlinVersion}"
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == 'org.jetbrains.kotlin.android') {
+                useVersion '1.9.10' // Specify your Kotlin version
+            }
+            if (requested.id.id == 'com.android.library') {
+                useVersion '8.0.2' // Specify your AGP version, e.g., 8.0.2
+            }
+        }
     }
 }
 
 rootProject.name = 'flutter_nfc_kit'
+
+// Define plugin version variables for easy maintenance
+gradle.ext.kotlin_version = '1.9.10' // Your Kotlin version
+gradle.ext.agp_version = '8.0.2' // Your Android Gradle Plugin version
